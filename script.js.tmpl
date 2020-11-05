@@ -33,7 +33,6 @@ Plotly.newPlot(div, [
     title: {{ print $name " - " $stateId | json }},
     yaxis: {
         tickformat: ".1%",
-        range: [0, 1],
     },
 });
 {{- end }}

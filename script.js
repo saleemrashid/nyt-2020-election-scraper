@@ -41,7 +41,6 @@ Plotly.newPlot(div, [
     title: "Arizona - AZ",
     yaxis: {
         tickformat: ".1%",
-        range: [0, 1],
     },
 });
 div = document.createElement("div");
@@ -143,7 +142,6 @@ Plotly.newPlot(div, [
     title: "Georgia - GA",
     yaxis: {
         tickformat: ".1%",
-        range: [0, 1],
     },
 });
 div = document.createElement("div");
@@ -175,7 +173,6 @@ Plotly.newPlot(div, [
     title: "North Carolina - NC",
     yaxis: {
         tickformat: ".1%",
-        range: [0, 1],
     },
 });
 div = document.createElement("div");
@@ -205,7 +202,6 @@ Plotly.newPlot(div, [
     title: "Nevada - NV",
     yaxis: {
         tickformat: ".1%",
-        range: [0, 1],
     },
 });
 div = document.createElement("div");
@@ -361,6 +357,5 @@ Plotly.newPlot(div, [
     title: "Pennsylvania - PA",
     yaxis: {
         tickformat: ".1%",
-        range: [0, 1],
     },
 });
