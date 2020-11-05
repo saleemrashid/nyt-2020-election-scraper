@@ -24,13 +24,13 @@ var (
 type raceStruct struct {
 	Name       string                     `json:"name"`
 	Candidates map[string]candidateStruct `json:"candidates"`
-	Sizes      []int                      `json:"sizes"`
-	MaxSize    int                        `json:"maxSize"`
 	Timestamps []time.Time                `json:"timestamps"`
 }
 
 type candidateStruct struct {
 	Percentages []float32 `json:"percentages"`
+	MaxSize     int       `json:"maxSize"`
+	Sizes       []int     `json:"sizes"`
 	Text        []string  `json:"text"`
 }
 
@@ -40,12 +40,12 @@ func (m RecordMap) Dump() string {
 	for key, records := range m {
 		race := raceStruct{
 			Candidates: make(map[string]candidateStruct, len(Candidates)),
-			Sizes:      make([]int, len(records)),
-			MaxSize:    0,
 			Timestamps: make([]time.Time, len(records)),
 		}
 		for _, candidate := range Candidates {
 			race.Candidates[candidate] = candidateStruct{
+				MaxSize:     0,
+				Sizes:       make([]int, len(records)),
 				Percentages: make([]float32, len(records)),
 				Text:        make([]string, len(records)),
 			}
@@ -55,17 +55,18 @@ func (m RecordMap) Dump() string {
 			race.Name = record.Race.Name
 			race.Timestamps[i] = record.Timestamp
 
-			if i > 0 || len(records) == 1 {
-				size := record.Delta()
-				race.Sizes[i] = size
-				if size > race.MaxSize {
-					race.MaxSize = size
-				}
-			}
-
 			for _, candidate := range Candidates {
-				race.Candidates[candidate].Percentages[i] = record.PercentageCandidate(candidate)
-				race.Candidates[candidate].Text[i] = record.text(candidate)
+				c := race.Candidates[candidate]
+				if i > 0 || len(records) == 1 {
+					size := record.DeltaCandidate(candidate)
+					c.Sizes[i] = size
+					if size > c.MaxSize {
+						c.MaxSize = size
+						race.Candidates[candidate] = c
+					}
+				}
+				c.Percentages[i] = record.PercentageCandidate(candidate)
+				c.Text[i] = record.text(candidate)
 			}
 		}
 

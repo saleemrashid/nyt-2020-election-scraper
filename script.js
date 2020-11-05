@@ -24,8 +24,8 @@ for (const [state, record] of Object.entries(data)) {
             y: candidateRecord.percentages,
             text: candidateRecord.text,
             marker: {
-                size: record.sizes,
-                sizeref: 2 * record.maxSize / (40 * 40),
+                size: candidateRecord.sizes,
+                sizeref: 2 * candidateRecord.maxSize / (40 * 40),
                 sizemin: 4,
                 sizemode: "area",
             },
