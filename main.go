@@ -141,14 +141,6 @@ func main() {
 			data.Records[race.StateId] = append(records, record)
 		}
 	}
-	now := time.Now()
-	for stateId, records := range data.Records {
-		if len(records) > 0 {
-			record := records[len(records)-1]
-			data.Timestamps[stateId] = append(data.Timestamps[stateId], now)
-			data.Records[stateId] = append(records, record)
-		}
-	}
 
 	if err := tmpl.Execute(os.Stdout, data); err != nil {
 		panic(err)
