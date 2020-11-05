@@ -27,7 +27,7 @@ jobs:
         git push
     - name: Generate data.js
       run: |-
-        go run main.go > tmp
+        go run . > tmp
         mv tmp data.js
     - name: Commit and push if it changed
       run: |-
