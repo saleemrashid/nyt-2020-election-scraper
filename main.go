@@ -86,9 +86,11 @@ func main() {
 				delta = otherVotes - votes
 			}
 			printer := message.NewPrinter(language.English)
+			reportedPercentage := float32(record.Votes*100) / float32(record.TotalExpectedVote)
 			outstandingVotes := record.TotalExpectedVote - record.Votes
 			requiredPercentage := float32((outstandingVotes+otherVotes-votes)*50) / float32(outstandingVotes)
-			return printer.Sprintf("<b>Votes:</b> %d (of %d)<br>%d votes %s<br>Needs %.1f%% of outstanding %d votes to win!", votes, record.Votes, delta, verb, requiredPercentage, outstandingVotes)
+			precinctPercentage := float32(record.PrecinctsReporting*100) / float32(record.PrecinctsTotal)
+			return printer.Sprintf("<b>Votes:</b> %d (of %d)<br>%d votes %s<br>Needs %.1f%% of outstanding votes to win!<br>%.1f%% votes reported, %d outstanding<br>%.1f%% precincts reported (%d of %d)", votes, record.Votes, delta, verb, requiredPercentage, reportedPercentage, outstandingVotes, precinctPercentage, record.PrecinctsReporting, record.PrecinctsTotal)
 		},
 	}).ParseFiles(templateFilename))
 
