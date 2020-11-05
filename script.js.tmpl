@@ -20,6 +20,7 @@ Plotly.newPlot(div, [
             {{ generateText . .BlueVotes .RedVotes | json }},
         {{- end }}
         ],
+        mode: "lines+markers",
         type: "scatter",
         line: { color: "#00A6EF" },
     },
@@ -36,6 +37,7 @@ Plotly.newPlot(div, [
             {{ generateText . .RedVotes .BlueVotes | json }},
         {{- end }}
         ],
+        mode: "lines+markers",
         type: "scatter",
         line: { color: "#e9141d" },
     },
