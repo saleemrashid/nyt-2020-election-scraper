@@ -5,7 +5,7 @@ main.appendChild(div);
 Plotly.newPlot(div, [
     {
         name: "Biden",
-        x: ["2020-11-04T13:28:22.084Z","2020-11-04T14:47:51.946Z","2020-11-04T18:56:14.325Z","2020-11-04T19:44:32.496Z","2020-11-04T20:28:27.938Z","2020-11-04T23:14:43.498Z","2020-11-05T00:20:56.454Z","2020-11-05T00:44:49.776Z","2020-11-05T02:13:20.211Z"],
+        x: ["2020-11-04T13:28:22.084Z","2020-11-04T14:47:51.946Z","2020-11-04T18:56:14.325Z","2020-11-04T19:44:32.496Z","2020-11-04T20:28:27.938Z","2020-11-04T23:14:43.498Z","2020-11-05T00:20:56.454Z","2020-11-05T00:44:49.776Z","2020-11-05T02:13:20.211Z","2020-11-05T07:45:16.653Z"],
         y: [
             1367211 / 2639559,
             1410977 / 2766463,
@@ -16,6 +16,7 @@ Plotly.newPlot(div, [
             1411235 / 2767524,
             1413891 / 2773138,
             1444213 / 2848675,
+            1469341 / 2910677,
         ],
         text: [
             "\u003cb\u003eVotes:\u003c/b\u003e 1,367,211 (of 2,639,559)\u003cbr\u003e130,665 votes ahead\u003cbr\u003eNeeds 38.3% of outstanding votes to win!\u003cbr\u003e82.5% votes reported, 560,441 outstanding\u003cbr\u003e83.5% precincts reported (1,243 of 1,489)",
@@ -27,6 +28,7 @@ Plotly.newPlot(div, [
             "\u003cb\u003eVotes:\u003c/b\u003e 1,411,235 (of 2,767,524)\u003cbr\u003e93,016 votes ahead\u003cbr\u003eNeeds 42.6% of outstanding votes to win!\u003cbr\u003e81.4% votes reported, 632,476 outstanding\u003cbr\u003e86.9% precincts reported (1,294 of 1,489)",
             "\u003cb\u003eVotes:\u003c/b\u003e 1,413,891 (of 2,773,138)\u003cbr\u003e92,817 votes ahead\u003cbr\u003eNeeds 42.6% of outstanding votes to win!\u003cbr\u003e81.6% votes reported, 626,862 outstanding\u003cbr\u003e87.0% precincts reported (1,296 of 1,489)",
             "\u003cb\u003eVotes:\u003c/b\u003e 1,444,213 (of 2,848,675)\u003cbr\u003e79,173 votes ahead\u003cbr\u003eNeeds 42.8% of outstanding votes to win!\u003cbr\u003e83.8% votes reported, 551,325 outstanding\u003cbr\u003e89.0% precincts reported (1,325 of 1,489)",
+            "\u003cb\u003eVotes:\u003c/b\u003e 1,469,341 (of 2,910,677)\u003cbr\u003e68,390 votes ahead\u003cbr\u003eNeeds 43.0% of outstanding votes to win!\u003cbr\u003e85.6% votes reported, 489,323 outstanding\u003cbr\u003e90.6% precincts reported (1,349 of 1,489)",
         ],
         mode: "lines+markers",
         type: "scatter",
@@ -34,7 +36,7 @@ Plotly.newPlot(div, [
     },
     {
         name: "Trump",
-        x: ["2020-11-04T13:28:22.084Z","2020-11-04T14:47:51.946Z","2020-11-04T18:56:14.325Z","2020-11-04T19:44:32.496Z","2020-11-04T20:28:27.938Z","2020-11-04T23:14:43.498Z","2020-11-05T00:20:56.454Z","2020-11-05T00:44:49.776Z","2020-11-05T02:13:20.211Z"],
+        x: ["2020-11-04T13:28:22.084Z","2020-11-04T14:47:51.946Z","2020-11-04T18:56:14.325Z","2020-11-04T19:44:32.496Z","2020-11-04T20:28:27.938Z","2020-11-04T23:14:43.498Z","2020-11-05T00:20:56.454Z","2020-11-05T00:44:49.776Z","2020-11-05T02:13:20.211Z","2020-11-05T07:45:16.653Z"],
         y: [
             1236546 / 2639559,
             1317468 / 2766463,
@@ -45,6 +47,7 @@ Plotly.newPlot(div, [
             1318219 / 2767524,
             1321074 / 2773138,
             1365040 / 2848675,
+            1400951 / 2910677,
         ],
         text: [
             "\u003cb\u003eVotes:\u003c/b\u003e 1,236,546 (of 2,639,559)\u003cbr\u003e130,665 votes behind\u003cbr\u003eNeeds 61.7% of outstanding votes to win!\u003cbr\u003e82.5% votes reported, 560,441 outstanding\u003cbr\u003e83.5% precincts reported (1,243 of 1,489)",
@@ -56,6 +59,7 @@ Plotly.newPlot(div, [
             "\u003cb\u003eVotes:\u003c/b\u003e 1,318,219 (of 2,767,524)\u003cbr\u003e93,016 votes behind\u003cbr\u003eNeeds 57.4% of outstanding votes to win!\u003cbr\u003e81.4% votes reported, 632,476 outstanding\u003cbr\u003e86.9% precincts reported (1,294 of 1,489)",
             "\u003cb\u003eVotes:\u003c/b\u003e 1,321,074 (of 2,773,138)\u003cbr\u003e92,817 votes behind\u003cbr\u003eNeeds 57.4% of outstanding votes to win!\u003cbr\u003e81.6% votes reported, 626,862 outstanding\u003cbr\u003e87.0% precincts reported (1,296 of 1,489)",
             "\u003cb\u003eVotes:\u003c/b\u003e 1,365,040 (of 2,848,675)\u003cbr\u003e79,173 votes behind\u003cbr\u003eNeeds 57.2% of outstanding votes to win!\u003cbr\u003e83.8% votes reported, 551,325 outstanding\u003cbr\u003e89.0% precincts reported (1,325 of 1,489)",
+            "\u003cb\u003eVotes:\u003c/b\u003e 1,400,951 (of 2,910,677)\u003cbr\u003e68,390 votes behind\u003cbr\u003eNeeds 57.0% of outstanding votes to win!\u003cbr\u003e85.6% votes reported, 489,323 outstanding\u003cbr\u003e90.6% precincts reported (1,349 of 1,489)",
         ],
         mode: "lines+markers",
         type: "scatter",
