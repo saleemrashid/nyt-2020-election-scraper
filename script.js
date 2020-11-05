@@ -34,12 +34,13 @@ for (const [state, record] of Object.entries(data)) {
             },
             mode: "lines+markers",
             type: "scatter",
+            hovertemplate: "%{text}<br><b>Time:</b> %{x}",
             hoverinfo: "text+name",
             showlegend: false,
         };
     }), {
         title: `${state} - ${record.name}`,
-        hovermode: "x",
+        hovermode: "closest",
         yaxis: {
             tickformat: ".2%",
         },
