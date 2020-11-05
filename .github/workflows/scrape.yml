@@ -25,18 +25,15 @@ jobs:
         timestamp=$(date -u)
         git commit -m "Latest data: ${timestamp}" || exit 0
         git push
-    - name: Install Python requirements
+    - name: Generate script.js
       run: |-
-        pip3 install -r requirements.txt
-    - name: Generate battleground-state-changes.txt
-      run: |-
-        ./print-battleground-state-changes > tmp
-        mv tmp battleground-state-changes.txt
+        go run main.go > tmp
+        mv tmp script.js
     - name: Commit and push if it changed
       run: |-
         git config user.name "Automated"
         git config user.email "actions@users.noreply.github.com"
         git add -A
         timestamp=$(date -u)
-        git commit -m "Regenerate battleground-state-changes.txt" || exit 0
+        git commit -m "Regenerate script.js" || exit 0
         git push

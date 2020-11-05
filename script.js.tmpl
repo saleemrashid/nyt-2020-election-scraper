@@ -1,0 +1,35 @@
+const main = document.getElementById("main");
+var div;
+
+{{- range $stateId, $records := $.Records }}
+div = document.createElement("div");
+main.appendChild(div);
+Plotly.newPlot(div, [
+    {{- $name := index $.Names $stateId }}
+    {{- $timestamps := index $.Timestamps $stateId | json }}
+    {
+        name: "Biden",
+        x: {{ $timestamps }},
+        y: [
+        {{- range $records }}
+            {{ .BlueVotes }} / {{ .Votes }},
+        {{- end }}
+        ],
+        type: "scatter",
+        line: { color: "blue" },
+    },
+    {
+        name: "Trump",
+        x: {{ $timestamps }},
+        y: [
+        {{- range $records }}
+            {{ .RedVotes }} / {{ .Votes }},
+        {{- end }}
+        ],
+        type: "scatter",
+        line: { color: "red" },
+    },
+], {
+    title: {{ print $name " - " $stateId | json }},
+});
+{{- end }}
