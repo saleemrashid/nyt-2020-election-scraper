@@ -15,8 +15,13 @@ Plotly.newPlot(div, [
             {{ .BlueVotes }} / {{ .Votes }},
         {{- end }}
         ],
+        text: [
+        {{- range $records }}
+            {{ generateText . .BlueVotes .RedVotes | json }},
+        {{- end }}
+        ],
         type: "scatter",
-        line: { color: "blue" },
+        line: { color: "#00A6EF" },
     },
     {
         name: "Trump",
@@ -26,8 +31,13 @@ Plotly.newPlot(div, [
             {{ .RedVotes }} / {{ .Votes }},
         {{- end }}
         ],
+        text: [
+        {{- range $records }}
+            {{ generateText . .RedVotes .BlueVotes | json }},
+        {{- end }}
+        ],
         type: "scatter",
-        line: { color: "red" },
+        line: { color: "#e9141d" },
     },
 ], {
     title: {{ print $name " - " $stateId | json }},

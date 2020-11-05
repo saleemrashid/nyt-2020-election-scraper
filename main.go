@@ -11,6 +11,9 @@ import (
 	"strconv"
 	"text/template"
 	"time"
+
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 )
 
 type resultsStruct struct {
@@ -51,7 +54,7 @@ type recordStruct struct {
 }
 
 type templateStruct struct {
-	Names map[string]string
+	Names      map[string]string
 	Timestamps map[string][]time.Time
 	Records    map[string][]recordStruct
 }
@@ -72,10 +75,25 @@ func main() {
 
 			return string(out)
 		},
+		"generateText": func(record recordStruct, votes int, otherVotes int) string {
+			var verb string
+			var delta int
+			if votes > otherVotes {
+				verb = "ahead"
+				delta = votes - otherVotes
+			} else {
+				verb = "behind"
+				delta = otherVotes - votes
+			}
+			printer := message.NewPrinter(language.English)
+			outstandingVotes := record.TotalExpectedVote - record.Votes
+			requiredPercentage := float32((outstandingVotes+otherVotes-votes)*50) / float32(outstandingVotes)
+			return printer.Sprintf("<b>Votes:</b> %d (of %d)<br>%d votes %s<br>Needs %.1f%% of outstanding %d votes to win!", votes, record.Votes, delta, verb, requiredPercentage, outstandingVotes)
+		},
 	}).ParseFiles(templateFilename))
 
 	data := templateStruct{
-		Names: map[string]string{},
+		Names:      map[string]string{},
 		Timestamps: map[string][]time.Time{},
 		Records: map[string][]recordStruct{
 			"AZ": []recordStruct{},
