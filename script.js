@@ -53,3 +53,17 @@ for (const [state, record] of Object.entries(data)) {
     const needleContainer = document.createElement("div");
     main.appendChild(needleContainer);
 }
+
+Promise.all(plots).then((plots) => {
+    const range = plots.map((plot) => {
+        return plot.layout.xaxis.range.map((date) => Date.parse(date.replace(" ", "T")));
+    }).reduce(([currentMin, currentMax], [xmin, xmax]) => {
+        return [Math.min(currentMin, xmin), Math.max(currentMax, xmax)];
+    }, [Infinity, -Infinity]);
+
+    for (const plot of plots) {
+        Plotly.relayout(plot, {
+            "xaxis.range": range,
+        });
+    }
+});
