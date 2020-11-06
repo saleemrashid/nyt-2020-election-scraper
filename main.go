@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
@@ -24,7 +23,7 @@ var (
 type raceStruct struct {
 	Name       string                     `json:"name"`
 	Candidates map[string]candidateStruct `json:"candidates"`
-	Timestamps []time.Time                `json:"timestamps"`
+	Timestamps []int64                    `json:"timestamps"`
 }
 
 type candidateStruct struct {
@@ -40,7 +39,7 @@ func (m RecordMap) Dump() string {
 	for key, records := range m {
 		race := raceStruct{
 			Candidates: make(map[string]candidateStruct, len(Candidates)),
-			Timestamps: make([]time.Time, len(records)),
+			Timestamps: make([]int64, len(records)),
 		}
 		for _, candidate := range Candidates {
 			race.Candidates[candidate] = candidateStruct{
@@ -53,7 +52,7 @@ func (m RecordMap) Dump() string {
 
 		for i, record := range records {
 			race.Name = record.Race.Name
-			race.Timestamps[i] = record.Timestamp
+			race.Timestamps[i] = record.Timestamp.UnixNano() / 1000000
 
 			for _, candidate := range Candidates {
 				c := race.Candidates[candidate]

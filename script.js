@@ -42,6 +42,9 @@ for (const [state, record] of Object.entries(data)) {
     }), {
         title: `${state} - ${record.name}`,
         hovermode: "closest",
+        xaxis: {
+            type: "date",
+        },
         yaxis: {
             tickformat: ".2%",
         },
@@ -50,18 +53,3 @@ for (const [state, record] of Object.entries(data)) {
     const needleContainer = document.createElement("div");
     main.appendChild(needleContainer);
 }
-
-Promise.all(plots).then((plots) => {
-    const range = plots.map((plot) => {
-        const [xmin, xmax] = plot.layout.xaxis.range;
-        return [new Date(xmin), new Date(xmax)];
-    }).reduce(([currentMin, currentMax], [xmin, xmax]) => {
-        return [Math.min(currentMin, xmin), Math.max(currentMax, xmax)];
-    }, [Infinity, -Infinity]);
-
-    for (const plot of plots) {
-        Plotly.relayout(plot, {
-            "xaxis.range": range,
-        });
-    }
-});
