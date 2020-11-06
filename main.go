@@ -116,11 +116,18 @@ func (r *Record) text(candidate string) string {
 	percent := r.PercentageCandidate(candidate)
 	otherPercent := r.PercentageCandidate(otherCandidate)
 
+	var estimate string
+	if votes := r.OutstandingVotes(); votes >= 0 {
+		estimate = printer.Sprintf("estimated %d outstanding", votes)
+	} else {
+		estimate = "unknown number of votes outstanding"
+	}
+
 	return printer.Sprintf(
-		"<b>Votes:</b> %d (%.2f%% of %d)<br>%d votes %s (%s)<br>%.2f%% reported, estimated %d outstanding<br>"+
+		"<b>Votes:</b> %d (%.2f%% of %d)<br>%d votes %s (%s)<br>%.2f%% reported, %s<br>"+
 			"<b>Precincts reporting:</b> %d of %d",
 		c.Votes, percent*100, r.Race.Votes, difference, verb, diffPercent(percent, otherPercent),
-		r.PercentageReportedVotes()*100, r.OutstandingVotes(),
+		r.PercentageReportedVotes()*100, estimate,
 		r.Race.PrecinctsReporting, r.Race.PrecinctsTotal,
 	)
 }
