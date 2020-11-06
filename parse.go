@@ -96,9 +96,22 @@ func parseRaceJson(obj *simdjson.Object, results *Results) {
 		"votes":               &race.Votes,
 		"precincts_reporting": &race.PrecinctsReporting,
 		"precincts_total":     &race.PrecinctsTotal,
-		"tot_exp_vote":        &race.TotalExpectedVote,
 		"candidates": func(_ *simdjson.Array, obj *simdjson.Object) {
 			parseCandidateJson(obj, &race)
+		},
+		"counties": func(_ *simdjson.Array, obj *simdjson.Object) {
+			parseJsonObject(obj, map[string]interface{}{
+				"tot_exp_vote": func(iter *simdjson.Iter) {
+					if iter.Type() == simdjson.TypeNull {
+						return
+					}
+					tmp, err := iter.Int()
+					if err != nil {
+						panic(err)
+					}
+					race.TotalExpectedVote += int(tmp)
+				},
+			})
 		},
 	})
 
@@ -139,6 +152,8 @@ func parseJsonObject(obj *simdjson.Object, fields map[string]interface{}) {
 				panic(err)
 			}
 			*v = int(tmp)
+		case func(*simdjson.Iter):
+			v(&iter)
 		case func(*simdjson.Array, *simdjson.Object):
 			arr, err := iter.Array(nil)
 			if err != nil {
