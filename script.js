@@ -41,9 +41,6 @@ for (const [state, record] of Object.entries(data)) {
     }), {
         title: `${state} - ${record.name}`,
         hovermode: "closest",
-        xaxis: {
-            range: [record.timestamps[0], new Date()],
-        },
         yaxis: {
             tickformat: ".2%",
         },
