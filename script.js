@@ -11,12 +11,13 @@ const CANDIDATES = {
 };
 
 const main = document.getElementById("main");
+const plots = [];
 
 for (const [state, record] of Object.entries(data)) {
     const chartContainer = document.createElement("div");
     main.appendChild(chartContainer);
 
-    Plotly.newPlot(chartContainer, Object.entries(CANDIDATES).map(([candidate, candidateData]) => {
+    plots.push(Plotly.newPlot(chartContainer, Object.entries(CANDIDATES).map(([candidate, candidateData]) => {
         const candidateRecord = record.candidates[candidate];
         return {
             name: candidateData.name,
@@ -44,8 +45,23 @@ for (const [state, record] of Object.entries(data)) {
         yaxis: {
             tickformat: ".2%",
         },
-    }, { responsive: true });
+    }, { responsive: true }));
 
     const needleContainer = document.createElement("div");
     main.appendChild(needleContainer);
 }
+
+Promise.all(plots).then((plots) => {
+    const range = plots.map((plot) => {
+        const [xmin, xmax] = plot.layout.xaxis.range;
+        return [new Date(xmin), new Date(xmax)];
+    }).reduce(([currentMin, currentMax], [xmin, xmax]) => {
+        return [Math.min(currentMin, xmin), Math.max(currentMax, xmax)];
+    }, [Infinity, -Infinity]);
+
+    for (const plot of plots) {
+        Plotly.relayout(plot, {
+            "xaxis.range": range,
+        });
+    }
+});
