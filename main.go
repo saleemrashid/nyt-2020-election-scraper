@@ -21,9 +21,9 @@ var (
 )
 
 type raceStruct struct {
-	Name       string                     `json:"name"`
-	Candidates map[string]candidateStruct `json:"candidates"`
-	Timestamps []int64                    `json:"timestamps"`
+	Name       string                      `json:"name"`
+	Candidates map[string]*candidateStruct `json:"candidates"`
+	Timestamps []int64                     `json:"timestamps"`
 }
 
 type candidateStruct struct {
@@ -34,15 +34,17 @@ type candidateStruct struct {
 }
 
 func (m RecordMap) Dump() string {
-	races := make(map[string]raceStruct, len(m))
+	races := make(map[string]*raceStruct, len(m))
 
 	for key, records := range m {
-		race := raceStruct{
-			Candidates: make(map[string]candidateStruct, len(Candidates)),
+		r := &raceStruct{
+			Candidates: make(map[string]*candidateStruct, len(Candidates)),
 			Timestamps: make([]int64, len(records)),
 		}
+		races[key] = r
+
 		for _, candidate := range Candidates {
-			race.Candidates[candidate] = candidateStruct{
+			r.Candidates[candidate] = &candidateStruct{
 				MaxSize:     0,
 				Sizes:       make([]int, len(records)),
 				Percentages: make([]float32, len(records)),
@@ -51,25 +53,22 @@ func (m RecordMap) Dump() string {
 		}
 
 		for i, record := range records {
-			race.Name = record.Race.Name
-			race.Timestamps[i] = record.Timestamp.UnixNano() / 1000000
+			r.Name = record.Race.Name
+			r.Timestamps[i] = record.Timestamp.UnixNano() / 1000000
 
 			for _, candidate := range Candidates {
-				c := race.Candidates[candidate]
+				c := r.Candidates[candidate]
 				if i > 0 || len(records) == 1 {
 					size := record.DeltaCandidate(candidate)
 					c.Sizes[i] = size
 					if size > c.MaxSize {
 						c.MaxSize = size
-						race.Candidates[candidate] = c
 					}
 				}
 				c.Percentages[i] = record.PercentageCandidate(candidate)
 				c.Text[i] = record.text(candidate)
 			}
 		}
-
-		races[key] = race
 	}
 
 	out, err := json.Marshal(races)
