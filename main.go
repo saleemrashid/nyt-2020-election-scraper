@@ -15,7 +15,7 @@ const (
 )
 
 var (
-	States     = [...]string{"AZ", "GA", "MI", "NC", "NV", "PA", "WI"}
+	States     = [...]string{"AZ", "GA", "NC", "NV", "PA"}
 	Candidates = [...]string{"bidenj", "trumpd"}
 
 	printer = message.NewPrinter(language.English)
